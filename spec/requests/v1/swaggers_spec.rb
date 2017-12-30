@@ -12,6 +12,9 @@ RSpec.describe "V1::Swagger", type: :request do
       get v1_swagger_path(format: :json)
 
       expect(response).to have_http_status(200)
+      expect(response.content_type).to eq "application/json"
+      expect { JSON(response.body) }.not_to raise_error
+      expect(JSON(response.body)['swagger']).to eq '2.0'
     end
   end
 end
