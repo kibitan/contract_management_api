@@ -1,0 +1,62 @@
+swagger: "2.0"
+info:
+  title: "Contract Management API"
+  description: "This is the Contract Management API server."
+  version: "0.0.1"
+basePath: "/v1"
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /users:
+    post:
+      summary: "create an account on the service"
+      parameters:
+      - in: "body"
+        name: "user"
+        required: true
+        schema:
+          type: "object"
+          required:
+           - "full_name"
+           - "email"
+           - "password"
+          properties:
+            full_name:
+              type: "string"
+            email:
+              type: "string"
+            password:
+              type: "string"
+              format: "password"
+      responses:
+        201:
+          description: "Success to create account"
+          schema:
+            type: "object"
+            properties:
+              auth_token:
+                type: "string"
+        400:
+          description: "Invalid Request"
+          schema:
+            $ref: "#/definitions/ErrorModel"
+        409:
+          description: "Conflict"
+          schema:
+            $ref: "#/definitions/ErrorModel"
+definitions:
+  ErrorModel:
+    type: "object"
+    required:
+      - "code"
+      - "message"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      messages:
+        type: array
+        items:
+          type: "string"
