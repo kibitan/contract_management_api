@@ -48,6 +48,7 @@ GEM
       rspec-expectations (~> 3.1)
       rspec-mocks (~> 3.1)
     arel (8.0.0)
+    bcrypt (3.1.11)
     builder (3.2.3)
     byebug (9.1.0)
     concurrent-ruby (1.0.5)
@@ -160,6 +161,7 @@ PLATFORMS
 
 DEPENDENCIES
   apivore
+  bcrypt
   byebug
   faker
   listen (>= 3.0.5, < 3.2)
