@@ -35,6 +35,10 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'apivore'
   gem 'faker'
+
+  # for debug
+  gem 'pry-byebug'
+  gem 'tapp'
 end
 
 group :development do
