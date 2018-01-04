@@ -16,13 +16,13 @@ describe User::CreateService do
       let(:password)  { Faker::Internet.password }
 
       it 'create user', :aggregate_failures do
-        is_expected.to be_truthy
-        # expect{ subject }.to change(User, :count).by(1)
-        expect(subject.user.persisted?).to be_truthy
+        expect{ subject }.to change(User, :count).by(1)
+        expect{ subject }.not_to raise_error
 
         expect(subject.user.full_name).to eq full_name
         expect(subject.user.email).to     eq email
-        # expect(subject.user.authenticate(password)).to be_truthy
+        expect(subject.user.persisted?).to be_truthy
+        expect(subject.user.authenticate(password)).to be_truthy
       end
     end
 
