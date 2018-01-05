@@ -18,11 +18,7 @@ describe User::CreateService do
       it 'create user', :aggregate_failures do
         expect{ subject }.to change(User, :count).by(1)
         expect{ subject }.not_to raise_error
-
-        expect(subject.user.full_name).to eq full_name
-        expect(subject.user.email).to     eq email
-        expect(subject.user.persisted?).to be_truthy
-        expect(subject.user.authenticate(password)).to be_truthy
+        expect(subject.user).to eq User.last
       end
     end
 
