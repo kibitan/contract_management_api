@@ -31,7 +31,6 @@ describe 'API', type: :apivore, order: :defined do
         let(:email)     { Faker::Internet.email }
         let(:password)  { Faker::Internet.password }
 
-        # TODO: auth_token should be locate to another resource, return only reference for it
         it { is_expected.to validate(:post, '/users', 201, params) }
       end
 
