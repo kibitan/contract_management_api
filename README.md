@@ -1,24 +1,41 @@
-# README
+# Contract Management API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+API server for contract management.
 
-Things you may want to cover:
+## Installation
 
-* Ruby version
+```bash
+ $ git clone git@github.com:kibitan/contract_management_api.git
+ $ bin/setup
+```
 
-* System dependencies
+## Requirement
 
-* Configuration
+ * Ruby 2.5.0
 
-* Database creation
+## API documentation
 
-* Database initialization
+ Defined with [OpenAPI Specification ver. 2 (fka Swagger)](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md), at [swagger.yml](config/swagger.yml)
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+## Usage
 
-* Deployment instructions
+ * now development only
 
-* ...
+```
+ $ bundle exec rails s
+```
+
+## Run test
+
+```
+ $ bundle exec rspec
+```
+
+## TODO
+ - [ ] write swagger.yaml
+   - [ ] define url for swagger-ui
+ - [ ] implement error handing for /v1/uesrs
+  - [ ] use comittee
+ - [ ] implement basic authorization
+ - [ ] implement contracts API
