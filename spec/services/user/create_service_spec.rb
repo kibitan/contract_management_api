@@ -22,6 +22,22 @@ describe User::CreateService do
         is_expected.to be true
         expect(user_create_service.user).to eq User.last
       end
+
+      context 'duplicated email' do
+        before do
+          User::CreateService.new(
+            full_name: full_name,
+            email:     email,
+            password:  password
+          ).call
+        end
+
+        it 'not create user', :aggregate_failures do
+          expect{ subject }.not_to change(User, :count)
+          is_expected.to be false
+          expect(user_create_service.errors.details[:email]).to include error: :taken
+        end
+      end
     end
 
     context 'with invalid arguments' do

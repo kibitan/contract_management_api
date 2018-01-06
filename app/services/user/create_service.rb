@@ -17,13 +17,27 @@ class User::CreateService
 
   def call
     return false if invalid?
+    return false if user_invalid?
+    user.save
+  end
 
+  private
+
+  def user_invalid?
     user.assign_attributes(
       full_name: full_name,
       email:     email,
       password:  password,
       password_confirmation: password
     )
-    user.save
+    user.validate
+
+    user.errors.details.each do |attribute, attribute_errors|
+      attribute_errors.each do |detail, _value|
+        errors.add(attribute, detail[:error])
+      end
+    end
+
+    user.invalid?
   end
 end
