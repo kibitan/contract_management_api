@@ -35,8 +35,10 @@ paths:
           description: "Success to create account"
           schema:
             type: "object"
+            required:
+              - "token"
             properties:
-              auth_token:
+              token:
                 type: "string"
         400:
           description: "Invalid Request"
