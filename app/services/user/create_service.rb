@@ -36,11 +36,14 @@ class User::CreateService
     )
     user.validate
 
-    user.errors.details.each do |attribute, attribute_errors|
-      attribute_errors.each do |detail, _value|
-        errors.add(attribute, detail[:error])
-      end
-    end
+    user.errors
+        .details
+        .slice(:full_name, :email, :password)
+        .each do |attribute, attribute_errors|
+          attribute_errors.each do |detail, _value|
+            errors.add(attribute, detail[:error])
+          end
+        end
 
     user.invalid?
   end
