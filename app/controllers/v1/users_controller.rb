@@ -1,13 +1,17 @@
 class V1::UsersController < ApplicationController
   # POST /v1/users
   def create
-    user_token =
-      User::CreateService.new(user_params.to_h.symbolize_keys).tap do |ucs|
-        ucs.call
-        break ucs.user.token
-      end
+    user_create_service = User::CreateService.new(
+      full_name: user_params[:full_name],
+      email:     user_params[:email],
+      password:  user_params[:password]
+    )
 
-    render status: :created, json: {token: user_token}
+    if user_create_service.call
+      render status: :created, json: { token: user_create_service.user.token }
+    else
+      render status: :bad_request, json: { error_messages: user_create_service.errors.full_messages }
+    end
   end
 
   private
