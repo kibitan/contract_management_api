@@ -1,0 +1,11 @@
+en:
+  activerecord:
+    models:
+      user: User  #g
+
+    attributes:
+      user:
+        email: Email  #g
+        full_name: Full name  #g
+        password_digest: Password digest  #g
+        token: Token  #g
