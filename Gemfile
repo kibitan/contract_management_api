@@ -30,6 +30,9 @@ gem 'puma', '~> 3.7'
 # @see http://guides.rubyonrails.org/active_model_basics.html#securepassword
 gem 'bcrypt'
 
+# for Swagger UI & Swagger Editor
+gem 'swagger_ui_engine'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
