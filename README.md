@@ -46,6 +46,7 @@ You can see documentation as Swagger UI by
 ## TODO
  - [ ] update swagger.yaml
  - [ ] implement error handing for /v1/uesrs
-  - [ ] use comittee
+   - use [comittee](https://github.com/interagent/committee)
+     - it's not working well with OpenAPI v2
  - [ ] implement basic authorization
  - [ ] implement contracts API
