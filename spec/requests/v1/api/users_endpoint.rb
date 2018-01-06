@@ -15,13 +15,15 @@ shared_examples 'users endpoint' do
     it { is_expected.to validate(:post, '/users', 201, params) }
   end
 
-  pending 'with empty full_name paramers' do
+  context 'with empty full_name paramers' do
     let(:full_name) { '' }
     let(:email)     { Faker::Internet.email }
     let(:password)  { Faker::Internet.password }
 
-    # TODO: test error message “Full Name should not be empty”
-    it { is_expected.to validate(:post, '/users', 400, params) }
+    specify do
+      is_expected.to validate(:post, '/users', 400, params)
+      expect(subject.response.parsed_body['error_messages']).to include 'Full Name should not be empty'
+    end
   end
 
   pending 'with empty email paramers' do

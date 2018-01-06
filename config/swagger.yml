@@ -52,13 +52,9 @@ definitions:
   ErrorModel:
     type: "object"
     required:
-      - "code"
-      - "message"
+      - "error_messages"
     properties:
-      code:
-        type: "integer"
-        format: "int32"
-      messages:
+      error_messages:
         type: array
         items:
           type: "string"
