@@ -21,6 +21,7 @@ describe User::CreateService do
         expect{ subject }.to change(User, :count).by(1)
         is_expected.to be true
         expect(user_create_service.user).to eq User.last
+        expect(user_create_service.email_conflict?).to be false
       end
 
       context 'duplicated email' do
@@ -36,6 +37,7 @@ describe User::CreateService do
           expect{ subject }.not_to change(User, :count)
           is_expected.to be false
           expect(user_create_service.errors.details[:email]).to include error: :taken
+          expect(user_create_service.email_conflict?).to be true
         end
       end
     end
@@ -50,6 +52,7 @@ describe User::CreateService do
           expect{ subject }.not_to change(User, :count)
           is_expected.to be false
           expect(user_create_service.errors.details[:full_name]).to include error: :blank
+          expect(user_create_service.email_conflict?).to be false
         end
       end
 
@@ -66,6 +69,7 @@ describe User::CreateService do
           expect{ subject }.not_to change(User, :count)
           is_expected.to be false
           expect(user_create_service.errors.details[:email]).to include error: :blank
+          expect(user_create_service.email_conflict?).to be false
         end
       end
 
@@ -83,6 +87,7 @@ describe User::CreateService do
             expect{ subject }.not_to change(User, :count)
             is_expected.to be false
             expect(user_create_service.errors.details[:password]).to include error: :blank
+            expect(user_create_service.email_conflict?).to be false
           end
         end
       end

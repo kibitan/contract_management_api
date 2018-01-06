@@ -21,6 +21,10 @@ class User::CreateService
     user.save
   end
 
+  def email_conflict?
+    errors.details[:email].include?(error: :taken)
+  end
+
   private
 
   def user_invalid?

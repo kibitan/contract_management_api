@@ -59,14 +59,22 @@ shared_examples 'users endpoint' do
     end
   end
 
-  pending 'with duplicated email paramers' do
+  context 'with duplicated email paramers' do
     let(:full_name) { Faker::Name.name }
     let(:email)     { Faker::Internet.email }
     let(:password)  { Faker::Internet.password }
 
-    before { 'call UserFactory here' }
+    before do
+      User::CreateService.new(
+        full_name: full_name,
+        email:     email,
+        password:  password
+      ).call
+    end
 
-    # TODO: test error message “Email is already taken”
-    it { is_expected.to validate(:post, '/users', 409, params) }
+    specify do
+      is_expected.to validate(:post, '/users', 409, params)
+      expect(subject.response.parsed_body['error_messages']).to include 'Email is already taken'
+    end
   end
 end

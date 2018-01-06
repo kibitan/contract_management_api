@@ -10,3 +10,4 @@ en:
       models:
         user/create_service:
           blank: should not be empty
+          taken: is already taken

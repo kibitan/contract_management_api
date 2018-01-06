@@ -10,7 +10,11 @@ class V1::UsersController < ApplicationController
     if user_create_service.call
       render status: :created, json: { token: user_create_service.user.token }
     else
-      render status: :bad_request, json: { error_messages: user_create_service.errors.full_messages }
+      if user_create_service.email_conflict?
+        render status: :conflict, json: { error_messages: user_create_service.errors.full_messages }
+      else
+        render status: :bad_request, json: { error_messages: user_create_service.errors.full_messages }
+      end
     end
   end
 
