@@ -11,6 +11,10 @@ produces:
 securityDefinitions:
   basicAuth:
     type: basic
+  ApiKeyAuth:
+    type: apiKey
+    in:   header
+    name: X-User-Token
 paths:
   /users:
     post:
@@ -55,6 +59,34 @@ paths:
           description: "Conflict"
           schema:
             $ref: "#/definitions/ErrorModel"
+  /current_user:
+    get:
+      summary: "retrive current user detail"
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          description: "Success to retrive current user detail"
+          schema:
+            type: "object"
+            required:
+             - "user_id"
+             - "full_name"
+             - "email"
+            properties:
+              user_id:
+                type: "string"
+                example: "100"
+              full_name:
+                type: "string"
+                example: "Chikahiro Tokoro"
+              email:
+                type: "string"
+                example: "test@example.com"
+        401:
+          description: Authentication information is missing or invalid
+          schema:
+            type: 'object'
   /contracts:
     post:
       security:

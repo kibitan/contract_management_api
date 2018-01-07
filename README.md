@@ -48,7 +48,9 @@ NOTE: now development only
  - [x] implement error handing for /v1/uesrs
    - use [comittee](https://github.com/interagent/committee)
      - it's not working well with OpenAPI v2
- - [ ] implement basic authorization
+ - implement authorization
+   - [x] implement ApiKeyAuth
+   - [ ] implement BasicAuth
  - implement contracts API
   - [ ] `/contracts` post
   - [ ] `/contracts/{contract_id}` get

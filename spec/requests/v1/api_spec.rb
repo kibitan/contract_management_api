@@ -23,6 +23,7 @@ describe 'API', type: :apivore, order: :defined do
 
   context 'has valid paths', order: :random do
     it_behaves_like "users endpoint"
+    it_behaves_like "current_user endpoint"
   end
 
   context 'and' do
