@@ -52,7 +52,7 @@ NOTE: now development only
    - [x] implement ApiKeyAuth
    - [ ] implement BasicAuth
  - implement contracts API
-  - [ ] `/contracts` post
-  - [ ] `/contracts/{contract_id}` get
-  - [ ] `/contracts/{contract_id}` delete
-  - [ ] introduce [jb](https://github.com/amatsuda/jb) or [json-api](https://github.com/jsonapi-rb/jsonapi-rb) for building json response
+   - [ ] `/contracts` post
+   - [ ] `/contracts/{contract_id}` get
+   - [ ] `/contracts/{contract_id}` delete
+   - [ ] introduce [jb](https://github.com/amatsuda/jb) or [json-api](https://github.com/jsonapi-rb/jsonapi-rb) for building json response
