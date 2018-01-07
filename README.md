@@ -44,9 +44,13 @@ NOTE: now development only
 ```
 
 ## TODO
- - [ ] update swagger.yaml
+ - [x] update swagger.yaml
  - [x] implement error handing for /v1/uesrs
    - use [comittee](https://github.com/interagent/committee)
      - it's not working well with OpenAPI v2
  - [ ] implement basic authorization
- - [ ] implement contracts API
+ - implement contracts API
+  - [ ] `/contracts` post
+  - [ ] `/contracts/{contract_id}` get
+  - [ ] `/contracts/{contract_id}` delete
+  - [ ] introduce [jb](https://github.com/amatsuda/jb) or [json-api](https://github.com/jsonapi-rb/jsonapi-rb) for building json response

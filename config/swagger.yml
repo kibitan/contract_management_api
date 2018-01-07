@@ -8,6 +8,9 @@ consumes:
   - application/json
 produces:
   - application/json
+securityDefinitions:
+  basicAuth:
+    type: basic
 paths:
   /users:
     post:
@@ -25,14 +28,17 @@ paths:
           properties:
             full_name:
               type: "string"
+              example: "Chikahiro Tokoro"
             email:
               type: "string"
+              example: "test@example.com"
             password:
               type: "string"
               format: "password"
+              example: "R4YiI1VtPt2iX"
       responses:
         201:
-          description: "Success to create account"
+          description: "Success to create an account"
           schema:
             type: "object"
             required:
@@ -40,6 +46,7 @@ paths:
             properties:
               token:
                 type: "string"
+                example: "XXXX7ihJt4vE3EKmSqdDXXXX"
         400:
           description: "Invalid Request"
           schema:
@@ -48,7 +55,112 @@ paths:
           description: "Conflict"
           schema:
             $ref: "#/definitions/ErrorModel"
+  /contracts:
+    post:
+      security:
+        - basicAuth: []
+      summary: "create a contract"
+      parameters:
+      - in: "body"
+        name: "contract"
+        required: true
+        schema:
+          $ref: "#/definitions/Contract"
+      responses:
+        201:
+          description: "Success to create a contract"
+          schema:
+            type: "object"
+            required:
+             - "contract_id"
+            properties:
+              contract_id:
+                type: "string"
+                example: "150"
+        400:
+          description: "Invalid Request"
+          schema:
+            $ref: "#/definitions/ErrorModel"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+  /contracts/{contract_id}:
+    get:
+      security:
+        - basicAuth: []
+      summary: "Show the contract detail"
+      parameters:
+      - in: "path"
+        name: "contract_id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success to show the contract detail"
+          schema:
+            $ref: "#/definitions/ContractWithId"
+        404:
+          description: "Requested contract is not found"
+          schema:
+            $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
+    delete:
+      security:
+        - basicAuth: []
+      summary: "delete the contract"
+      parameters:
+      - in: "path"
+        name: "contract_id"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Success to delete the contract"
+          schema:
+            $ref: "#/definitions/ContractWithId"
+        404:
+          description: "Requested contract is not found"
+          schema:
+            $ref: "#/responses/NotFoundError"
+        401:
+          $ref: "#/responses/UnauthorizedError"
 definitions:
+  Contract:
+    type: "object"
+    required:
+     - "vendor"
+     - "starts_on"
+     - "ends_on"
+     - "price"
+    properties: &contract_properties
+      vendor:
+        type: "string"
+        example: "Vodafone"
+      starts_on:
+        type: "string"
+        format: "date"
+        example: "2017-12-01"
+      ends_on:
+        type: "string"
+        format: "date"
+        example: "2018-01-31"
+      price:
+        type: "number"
+        format: "double"
+        example: "119.99"
+  ContractWithId:
+    type: "object"
+    required:
+     - "contract_id"
+     - "vendor"
+     - "starts_on"
+     - "ends_on"
+     - "price"
+    properties:
+      contract_id:
+        type: "string"
+        example: "150"
+      <<: *contract_properties
   ErrorModel:
     type: "object"
     required:
@@ -58,3 +170,11 @@ definitions:
         type: array
         items:
           type: "string"
+responses:
+  UnauthorizedError:
+    description: Authentication information is missing or invalid
+    headers:
+      WWW_Authenticate:
+        type: string
+  NotFoundError:
+    description: Requested resource is not found
