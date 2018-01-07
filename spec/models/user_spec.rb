@@ -61,5 +61,30 @@ RSpec.describe User, type: :model do
         expect(user.authenticate(password + 'fake')).to be false
       end
     end
+
+    describe '.authenticate_token' do
+      subject { User.authenticate_token(token) }
+      let!(:user) do
+        ucs = User::CreateService.new(
+          full_name: Faker::Name.name,
+          email:     Faker::Internet.email,
+          password:  Faker::Internet.password
+        )
+        ucs.call
+        ucs.user
+      end
+
+      context 'with valid token' do
+        let(:token) { user.token }
+
+        it { is_expected.to eq user }
+      end
+
+      context 'with invalid token' do
+        let(:token) { user.token + 'fake' }
+
+        it { is_expected.to be false }
+      end
+    end
   end
 end

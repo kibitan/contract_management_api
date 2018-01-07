@@ -28,4 +28,10 @@ class User < ApplicationRecord
     # NOTE: validate for token will not work correctly and no need
     # required_column.validates :token, uniqueness: true
   end
+
+  class << self
+    def authenticate_token(token)
+      find_by(token: token) || false
+    end
+  end
 end
