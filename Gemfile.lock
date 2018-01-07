@@ -180,7 +180,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   apivore
-  bcrypt
+  bcrypt (~> 3.1.7)
   byebug
   faker
   i18n_generators
