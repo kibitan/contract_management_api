@@ -20,7 +20,6 @@ Defined with [OpenAPI Specification ver. 2 (fka Swagger)](https://github.com/OAI
 
 You can see documentation as Swagger UI by
  * [Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/kibitan/contract_management_api/master/config/swagger.yml) (without Mock Server - Try it out)
- * [http://localhost:3000/api_doc](http://localhost:3000/api_doc) ( Swagger UI v2)
  * [waggerapi/swagger-ui - Docker Hub](https://hub.docker.com/r/swaggerapi/swagger-ui/)
 
   ```bash

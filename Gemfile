@@ -30,9 +30,6 @@ gem 'puma', '~> 3.7'
 # @see http://guides.rubyonrails.org/active_model_basics.html#securepassword
 gem 'bcrypt'
 
-# for Swagger UI & Swagger Editor
-gem 'swagger_ui_engine'
-
 # Email Validator
 gem "valid_email2"
 
