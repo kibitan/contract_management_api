@@ -56,10 +56,6 @@ describe User::CreateService do
         end
       end
 
-      context 'invalid full_name format' do
-        pending
-      end
-
       context 'empty email' do
         let(:full_name) { Faker::Name.name }
         let(:email)     { '' }
@@ -75,7 +71,7 @@ describe User::CreateService do
 
       context 'invalid email format' do
         let(:full_name) { Faker::Name.name }
-        let(:email)     { 'hogehoge' }
+        let(:email)     { 'hoge@example' }
         let(:password)  { Faker::Internet.password }
 
         it 'not create user', :aggregate_failures do

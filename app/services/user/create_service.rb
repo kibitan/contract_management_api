@@ -4,7 +4,7 @@ class User::CreateService
 
   with_options presence: true do |required_column|
     required_column.validates :full_name
-    required_column.validates :email
+    required_column.validates :email, 'valid_email_2/email': true
     required_column.validates :password, length: { minimum: 8 }
   end
 
