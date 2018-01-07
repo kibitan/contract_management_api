@@ -74,26 +74,42 @@ describe User::CreateService do
       end
 
       context 'invalid email format' do
-        pending
-      end
+        let(:full_name) { Faker::Name.name }
+        let(:email)     { 'hogehoge' }
+        let(:password)  { Faker::Internet.password }
 
-      context 'empty password' do
-        context 'empty email' do
-          let(:full_name) { Faker::Name.name }
-          let(:email)     { Faker::Internet.email }
-          let(:password)  { '' }
-
-          it 'not create user', :aggregate_failures do
-            expect{ subject }.not_to change(User, :count)
-            is_expected.to be false
-            expect(user_create_service.errors.details[:password]).to include error: :blank
-            expect(user_create_service.email_conflict?).to be false
-          end
+        it 'not create user', :aggregate_failures do
+          expect{ subject }.not_to change(User, :count)
+          is_expected.to be false
+          expect(user_create_service.errors.details[:email]).to include error: :invalid
+          expect(user_create_service.email_conflict?).to be false
         end
       end
 
-      context 'invalid password format' do
-        pending
+      context 'empty password' do
+        let(:full_name) { Faker::Name.name }
+        let(:email)     { Faker::Internet.email }
+        let(:password)  { '' }
+
+        it 'not create user', :aggregate_failures do
+          expect{ subject }.not_to change(User, :count)
+          is_expected.to be false
+          expect(user_create_service.errors.details[:password]).to include error: :blank
+          expect(user_create_service.email_conflict?).to be false
+        end
+      end
+
+      context 'too short password length' do
+        let(:full_name) { Faker::Name.name }
+        let(:email)     { Faker::Internet.email }
+        let(:password)  { Faker::Internet.password(1, 7) }
+
+        it 'not create user', :aggregate_failures do
+          expect{ subject }.not_to change(User, :count)
+          is_expected.to be false
+          expect(user_create_service.errors.details[:password]).to include error: :too_short, count: 8
+          expect(user_create_service.email_conflict?).to be false
+        end
       end
     end
   end
