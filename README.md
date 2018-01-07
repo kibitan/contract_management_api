@@ -19,19 +19,20 @@ API server for contract management.
 Defined with [OpenAPI Specification ver. 2 (fka Swagger)](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md) at [swagger.yml](config/swagger.yml)
 
 You can see documentation as Swagger UI by
- * [Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/kibitan/contract_management_api/master/config/swagger.yml)
+ * [Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/kibitan/contract_management_api/master/config/swagger.yml) (without Mock Server - Try it out)
  * [http://localhost:3000/api_doc](http://localhost:3000/api_doc) ( Swagger UI v2)
  * [waggerapi/swagger-ui - Docker Hub](https://hub.docker.com/r/swaggerapi/swagger-ui/)
 
   ```bash
    $ docker pull swaggerapi/swagger-ui
    $ docker run -p 80:8080 -e API_URL=http://localhost:3000/v1/swagger.json swaggerapi/swagger-ui
+   // with Docker for Mac with higher than v 17.06, use API_URL=http://docker.for.mac.localhost:3000/v1/swagger.json
    $ open http://localhost
   ```
 
 ## Usage
 
- * now development only
+NOTE: now development only
 
 ```
  $ bundle exec rails s
@@ -45,7 +46,7 @@ You can see documentation as Swagger UI by
 
 ## TODO
  - [ ] update swagger.yaml
- - [ ] implement error handing for /v1/uesrs
+ - [x] implement error handing for /v1/uesrs
    - use [comittee](https://github.com/interagent/committee)
      - it's not working well with OpenAPI v2
  - [ ] implement basic authorization
