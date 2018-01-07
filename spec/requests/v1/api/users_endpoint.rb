@@ -37,6 +37,17 @@ shared_examples 'users endpoint' do
     end
   end
 
+  context 'with invalid email paramers' do
+    let(:full_name) { Faker::Name.name }
+    let(:email)     { 'foo@bar' }
+    let(:password)  { Faker::Internet.password }
+
+    specify do
+      is_expected.to validate(:post, '/users', 400, params)
+      expect(subject.response.parsed_body['error_messages']).to include 'Email is invalid'
+    end
+  end
+
   context 'with empty password paramers' do
     let(:full_name) { Faker::Name.name }
     let(:email)     { Faker::Internet.email }
@@ -45,6 +56,17 @@ shared_examples 'users endpoint' do
     specify do
       is_expected.to validate(:post, '/users', 400, params)
       expect(subject.response.parsed_body['error_messages']).to include 'Password should not be empty'
+    end
+  end
+
+  context 'with too short password paramers' do
+    let(:full_name) { Faker::Name.name }
+    let(:email)     { Faker::Internet.email }
+    let(:password)  { Faker::Internet.password(1, 7) }
+
+    specify do
+      is_expected.to validate(:post, '/users', 400, params)
+      expect(subject.response.parsed_body['error_messages']).to include 'Password is too short (minimum is 8 characters)'
     end
   end
 
