@@ -31,5 +31,14 @@ module ContractManagementApi
     config.api_only = true
 
     config.swagger_yaml_path = Rails.root.join('config/swagger.yml')
+
+    # handling Cross-Origin Resource Sharing (CORS)
+    # @see https://github.com/cyu/rack-cors#rails-configuration
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :post, :options]
+      end
+    end
   end
 end
